@@ -23,6 +23,8 @@ jobs:
       run: dotnet build --no-restore
     - name: Publish
       run: dotnet publish BlazorWasmHelloWorld.csproj -c Release -o release --nologo
+    - name: Fix path
+      run: sed -i 's/<base href="\/" \/>/<base href="\/BlazorWasmHelloWorld\/" \/>/g' release/wwwroot/index.html
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@v4
       with:
